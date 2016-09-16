@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.*;
 
 
+
 @ExtensionMethod(LombokExtensions.class)
 @AllArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -93,7 +94,7 @@ public class WebhooksListener extends BuildServerAdapter {
    */
   private void postPayload(@NonNull String url, @NonNull String payload){
     try {
-      val request  = HttpRequest.post(url).body(payload).open();
+      val request  = HttpRequest.post(url).bodyText(payload, "application/json").open();
       // http://jodd.org/doc/http.html#sockethttpconnection
       ((SocketHttpConnection) request.httpConnection()).getSocket().setSoTimeout(POST_TIMEOUT);
       val response = request.send();
